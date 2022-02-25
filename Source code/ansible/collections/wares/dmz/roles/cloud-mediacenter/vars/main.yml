@@ -1,0 +1,18 @@
+---
+# vars file for cloud-mediacenter
+
+# General
+cloud_mediacenter_hdpart: "/dev/sda2"
+cloud_mediacenter_emulators_user: "emulators"
+cloud_mediacenter_write_user: "john"
+
+# Samba
+cloud_mediacenter_samba_workgroup: "workgroup"
+cloud_mediacenter_samba_hostname: "sambahost"
+cloud_mediacenter_samba_users:
+  - {name: 'john', smbpasswd: 'j0hnP@55w0rd'}
+  - {name: 'emulators', smbpasswd: '3mu74t0r5'}
+  
+# Transmission
+cloud_mediacenter_transmission_rpc_username: 'sam'
+cloud_mediacenter_transmission_rpc_password: 's4mP@55w0rd'

@@ -1,0 +1,27 @@
+---
+
+- name: Test Task
+  gather_facts: false
+  hosts: gaia
+  
+  vars:
+    test_message: "Username"
+    say_welcome: true
+    
+  vars_prompt:
+  - name: how are you
+    private: no
+    prompt: "{{ test_message }}"
+    
+  - name: my_password
+    prompt: New password
+    private: yes          # hide characters
+    encrypt: sha512_crypt # crypt scheme
+    confirm: yes          # ask twice
+    salt_size: 7          # default = 8
+    
+  tasks:
+    - name: Display user answer
+      ansible.builtin.debug:
+        msg: "Welcome '{{ test_message }}'"
+      when: say_welcome

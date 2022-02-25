@@ -1,0 +1,22 @@
+---
+# handlers file for cloud-mediacenter
+- name: restart smbd
+  service:
+    name: smbd
+    state: restarted
+
+- name: init kodi service
+  ansible.builtin.systemd:
+    state: stopped
+    daemon_reload: yes
+    name: "{{ cloud_mediacenter_kodi_svcname }}"
+
+- name: enable kodi service
+  ansible.builtin.service:
+    name: "{{ cloud_mediacenter_kodi_svcname }}"
+    enabled: yes
+    
+- name: start kodi service
+  ansible.builtin.systemd:
+    state: started
+    name: "{{ cloud_mediacenter_kodi_svcname }}"

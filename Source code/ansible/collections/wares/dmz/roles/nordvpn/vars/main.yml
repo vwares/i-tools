@@ -1,0 +1,7 @@
+---
+# vars file for nordvpn
+nordvpn_install_linux_client: false
+nordvpn_ovpn_conf_file: '/etc/openvpn/nordvpn/ovpn_udp/uk2222.nordvpn.com.udp.ovpn'
+nordvpn_ovpn_conf_name: 'uk2222'
+nordvpn_login: 'sam@domain.org'
+nordvpn_password: 'P@55w0rd1'

@@ -1,0 +1,15 @@
+---
+# tasks file for tinyproxy
+- name: Install Tinyproxy packages
+  apt:
+    name: tinyproxy
+
+- name: Edit Tinyproxy configuration
+  template:
+    src: tinyproxy.conf
+    dest: /etc/tinyproxy/tinyproxy.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart tinyproxy

@@ -1,0 +1,6 @@
+---
+# vars file for tinyproxy
+tinyproxy_port: 8888
+tinyproxy_allow_networks: 
+  - '127.0.0.1'
+  - '192.168.1.0/24'

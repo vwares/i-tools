@@ -1,0 +1,29 @@
+---
+# defaults file for cloud-mediacenter
+
+# General
+cloud_mediacenter_hdtype: "ext4"
+cloud_mediacenter_hdmountpoint: "/mnt/hd"
+
+# Transmission
+cloud_mediacenter_transmission_bind_address_ipv4: '0.0.0.0' # default: '0.0.0.0'
+cloud_mediacenter_transmission_bind_address_ipv6: '::' # default: '::'
+cloud_mediacenter_transmission_download_dir: "{{ cloud_mediacenter_hdmountpoint }}/Incoming" # default: '/var/lib/transmission-daemon/Downloads'
+cloud_mediacenter_transmission_incomplete_dir: "{{ cloud_mediacenter_hdmountpoint }}/Incoming" # default: '/var/lib/transmission-daemon/Downloads'
+cloud_mediacenter_transmission_user: 'debian-transmission'
+cloud_mediacenter_transmission_port_forwarding_enabled: 'true' # default: 'false'
+cloud_mediacenter_transmission_prefetch_enabled: 'true' # default: 'true'
+cloud_mediacenter_transmission_rpc_whitelist: '*.*.*.*' # default: '127.0.0.1'
+cloud_mediacenter_transmission_speed_limit_down: '500' # default: '100'
+cloud_mediacenter_transmission_speed_limit_down_enabled: 'false' # default: 'false'
+cloud_mediacenter_transmission_speed_limit_up: '500' # default: '100'
+cloud_mediacenter_transmission_speed_limit_up_enabled: 'true' # default: 'false'
+cloud_mediacenter_transmission_upload_limit: '50' # default: '100'
+cloud_mediacenter_transmission_upload_limit_enabled: '1' # default: '0'
+
+# Kodi
+cloud_mediacenter_kodi_svcaccount: "pi"
+cloud_mediacenter_kodi_svcname: "kodi-standalone"
+cloud_mediacenter_kodi_svcdescription: "Kodi standalone run"
+cloud_mediacenter_kodi_svcstart: "/usr/local/bin/start-kodi-sa.sh"
+cloud_mediacenter_kodi_cmdstart: "/usr/bin/kodi-standalone"

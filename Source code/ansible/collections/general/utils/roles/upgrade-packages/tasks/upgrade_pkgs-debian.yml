@@ -1,0 +1,15 @@
+---
+- name: Update Cache and Upgrade all Packages
+  register: updatesys
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Display the last line of the previous task to check the stats
+  debug:
+    msg:  "{{updatesys.stdout_lines|last}}"
+
+- name: Check if a reboot is needed for Debian and Ubuntu boxes
+  register: upgrade_packages_reboot_required
+  stat: path=/var/run/reboot-required

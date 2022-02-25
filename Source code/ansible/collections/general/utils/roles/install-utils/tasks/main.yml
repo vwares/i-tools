@@ -1,0 +1,9 @@
+---
+# tasks file for install-utils
+- name: Import packages installation role (Redhat)
+  import_tasks: install_utils-redhat.yml
+  when: ansible_facts['os_family']|lower == 'redhat'
+
+- name: Import packages installation role (Debian)
+  import_tasks: install_utils-debian.yml
+  when: ansible_facts['os_family']|lower == 'debian' or ansible_facts['os_family']|lower == 'osmc' or ansible_facts['os_family']|lower == 'libreelec'

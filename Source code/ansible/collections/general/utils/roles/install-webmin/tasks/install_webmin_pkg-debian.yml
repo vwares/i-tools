@@ -1,0 +1,17 @@
+---
+- name: Copy Webmin package in root directory
+  ansible.builtin.copy:
+    src: "{{ debian_webmin_pkg_file }}"
+    dest: /root
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install Webmin package (Debian)
+  ansible.builtin.apt:
+    deb: "/root/{{ debian_webmin_pkg_file }}"
+    
+- name: Delete Webmin package in root directory
+  ansible.builtin.file:
+    path: "/root/{{ debian_webmin_pkg_file }}"
+    state: absent

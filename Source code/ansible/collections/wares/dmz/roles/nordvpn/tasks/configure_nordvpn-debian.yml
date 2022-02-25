@@ -1,0 +1,114 @@
+---
+- name: Copy Nordvpn reference package in root directory
+  ansible.builtin.copy:
+    src: "{{ nordvpn_debian_package_file }}"
+    dest: /root
+    owner: root
+    group: root
+    mode: '0644'
+  when: nordvpn_install_linux_client
+
+- name: Install Nordvpn reference package (Debian)
+  ansible.builtin.apt:
+    deb: "/root/{{ nordvpn_debian_package_file }}"
+  when: nordvpn_install_linux_client
+    
+- name: Delete Nordvpn reference package in root directory
+  ansible.builtin.file:
+    path: "/root/{{ nordvpn_debian_package_file }}"
+    state: absent
+  when: nordvpn_install_linux_client
+
+- name: Install Nordvpn app (Debian)
+  ansible.builtin.apt:
+    name: nordvpn
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: nordvpn_install_linux_client
+
+- name: "Disable Ipv6 1/4 (Debian)"
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    # Any line that begins with 'net.ipv6...' and that ends with anything
+    regexp: '^net.ipv6.conf.all.disable_ipv6.*'
+    line: net.ipv6.conf.all.disable_ipv6 = 1
+
+- name: "Disable Ipv6 2/4 (Debian)"
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    # Any line that begins with 'net.ipv6...' and that ends with anything
+    regexp: '^net.ipv6.conf.default.disable_ipv6.*'
+    line: net.ipv6.conf.default.disable_ipv6 = 1
+
+- name: "Disable Ipv6 3/4 (Debian)"
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    # Any line that begins with 'net.ipv6...' and that ends with anything
+    regexp: '^net.ipv6.conf.lo.disable_ipv6.*'
+    line: net.ipv6.conf.lo.disable_ipv6 = 1
+
+- name: "Disable Ipv6 4/4 (Debian)"
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    # Any line that begins with 'net.ipv6...' and that ends with anything
+    regexp: '^net.ipv6.conf.tun0.disable_ipv6.*'
+    line: net.ipv6.conf.tun0.disable_ipv6 = 1
+    
+- name: Reboot
+  reboot:
+    reboot_timeout: 300
+
+- name: Install Openvpn
+  apt:
+    pkg:
+    - openvpn
+    - ca-certificates
+    - unzip
+
+- name: Create OpenVpn servers config subdirectory
+  file:
+    path: "{{ nordvpn_ovpn_conf_directory }}"
+    state: directory
+    mode: u=rwx,g=r,o=r  
+
+- name: Download and unzip NordVpn/OpenVpn client connection files
+  ansible.builtin.unarchive:
+    src: https://downloads.nordcdn.com/configs/archives/servers/ovpn.zip
+    dest: "{{ nordvpn_ovpn_conf_directory }}"
+    remote_src: yes
+
+- name: Copy Nordvpn reference client connection file in /etc/openvpn
+  ansible.builtin.copy:
+    src: "{{ nordvpn_ovpn_conf_file }}"
+    remote_src: yes
+    dest: "/etc/openvpn/{{ nordvpn_ovpn_conf_name }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "Edit OpenVpn client connection file"
+  ansible.builtin.lineinfile:
+    path: "/etc/openvpn/{{ nordvpn_ovpn_conf_name }}.conf"
+    # Replace any line that is exactly "auth-user-pass" or create it
+    regexp: '^auth-user-pass'
+    line: auth-user-pass auth.txt
+
+- name: "Edit OpenVpn boot file"
+  ansible.builtin.lineinfile:
+    path: /etc/default/openvpn
+    regexp: '^AUTOSTART='
+    insertbefore: '^#AUTOSTART="all"'
+    line: AUTOSTART="{{ nordvpn_ovpn_conf_name }}"
+
+- name: Save NordVpn credentials
+  template:
+    src: nordvpn_auth.txt
+    dest: /etc/openvpn/auth.txt
+    owner: root
+    group: root
+    mode: 0644
+    
+- name: Reboot
+  reboot:
+    reboot_timeout: 300

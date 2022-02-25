@@ -1,0 +1,5 @@
+---
+- name: Install Webmin .rpm package from the internet
+  yum:
+    name: "{{ redhat_webmin_pkg_url }}"
+    state: present

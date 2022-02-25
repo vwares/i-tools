@@ -1,0 +1,8 @@
+- name: Update Os (Debian full upgrade)
+  apt:
+    upgrade: full
+    update_cache: yes
+
+- name: Check if a reboot is needed for Debian and Ubuntu boxes
+  register: update_os_reboot_required
+  stat: path=/var/run/reboot-required

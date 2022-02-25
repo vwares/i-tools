@@ -1,0 +1,35 @@
+---
+# tasks file for set-network
+- name: Get Json content
+  set_fact:
+    set_network_hostsettings: "{{ lookup('file',set_network_json) | from_json }}"
+  no_log: True
+
+- name: Set hostname
+  ansible.builtin.copy:
+    dest: /etc/hostname
+    content: "{{ set_network_hostsettings.network.hostname }}\n"
+  when: set_network_hostsettings.network.hostname|length > 0
+
+- name: Set network configuration (Dhcpcd)
+  import_tasks: set_network_dhcpcd.yml
+  when: set_network_manager|lower == 'dhcpcd'
+
+- name: Set network configuration (Netplan)
+  import_tasks: set_network_netplan.yml
+  when: set_network_manager|lower == 'netplan'
+
+- name: Set IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "{{set_network_hostsettings.network.ip_forward}}"
+    state: present
+    reload: True
+
+#- name: Enable Forwarding if specified
+#  ansible.builtin.lineinfile:
+#    path: /etc/sysctl.conf
+#    # Any line that contains 'net.ipv4.ip_forward'
+#    regexp: '.*net.ipv4.ip_forward.*'
+#    line: net.ipv4.ip_forward=1
+#  when: set_network_hostsettings.network.ip_forward == 1

@@ -1,0 +1,7 @@
+---
+# handlers file for set-hostkeys
+- name: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  service:
+    name: sshd
+    state: restarted
+  when: set_hostkeys_restart_service

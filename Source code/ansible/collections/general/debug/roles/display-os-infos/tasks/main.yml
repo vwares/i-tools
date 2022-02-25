@@ -1,0 +1,4 @@
+---
+# tasks file for display-os-infos
+- name: Display OS versions
+  import_tasks: os_versions.yml

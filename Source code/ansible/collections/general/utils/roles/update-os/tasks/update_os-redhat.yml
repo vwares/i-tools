@@ -1,0 +1,3 @@
+---
+- name: Update Os (Redhat)
+  debug: msg="This playbook is not written yet"

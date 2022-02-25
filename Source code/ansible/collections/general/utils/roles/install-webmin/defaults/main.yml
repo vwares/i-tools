@@ -1,0 +1,7 @@
+---
+# defaults file for install-webmin
+redhat_webmin_pkgs_list: "wget , perl , perl-Net-SSLeay , openssl , unzip , perl-Encode-Detect , perl-Data-Dumper"
+redhat_webmin_pkg_url: "http://prdownloads.sourceforge.net/webadmin/webmin-1.984-1.noarch.rpm"
+
+debian_webmin_pkgs_list: "perl , libnet-ssleay-perl , openssl , libauthen-pam-perl , libpam-runtime , libio-pty-perl , apt-show-versions , python , unzip"
+debian_webmin_pkg_file: "webmin_1.984_all.deb"

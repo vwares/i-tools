@@ -1,0 +1,18 @@
+---
+# tasks file for upgrade-packages
+- name: Import all packages upgrade role (Redhat)
+  import_tasks: upgrade_pkgs-redhat.yml
+  when: ansible_facts['os_family']|lower == 'redhat'
+- name: Import all packages upgrade role (Debian)
+  import_tasks: upgrade_pkgs-debian.yml
+  when: ansible_facts['os_family']|lower == 'debian' or ansible_facts['os_family']|lower == 'osmc'
+ 
+- name: Reboot host
+  reboot:
+    msg: "Reboot initiated by Ansible due to kernel updates"
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: uptime
+  when: upgrade_packages_reboot_required.stat.exists

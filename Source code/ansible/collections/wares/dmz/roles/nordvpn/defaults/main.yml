@@ -1,0 +1,5 @@
+---
+# defaults file for nordvpn
+nordvpn_redhat_package_file: 'nordvpn-release-1.0.0-1.noarch.rpm'
+nordvpn_debian_package_file: 'nordvpn-release_1.0.0_all.deb'
+nordvpn_ovpn_conf_directory: '/etc/openvpn/nordvpn'

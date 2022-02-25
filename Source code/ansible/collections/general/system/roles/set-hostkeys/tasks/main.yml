@@ -1,0 +1,70 @@
+---
+# tasks file for set-hostkeys
+- name: Get Json content
+  set_fact:
+    set_hostkeys_content: "{{ lookup('file',set_hostkeys_json) | from_json }}"
+  no_log: True
+
+- name: Set DSA private key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_dsa_key"
+    content: "{{ set_hostkeys_content.hostkeys.dsa.private }}"
+  when: set_hostkeys_content.hostkeys.dsa.private|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set DSA public key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_dsa_key.pub"
+    content: "{{ set_hostkeys_content.hostkeys.dsa.public }}"
+  when: set_hostkeys_content.hostkeys.dsa.public|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set ECDSA private key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_ecdsa_key"
+    content: "{{ set_hostkeys_content.hostkeys.ecdsa.private }}"
+  when: set_hostkeys_content.hostkeys.ecdsa.private|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set ECDSA public key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_ecdsa_key.pub"
+    content: "{{ set_hostkeys_content.hostkeys.ecdsa.public }}"
+  when: set_hostkeys_content.hostkeys.ecdsa.public|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set ED25519 private key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_ed25519_key"
+    content: "{{ set_hostkeys_content.hostkeys.ed25519.private }}"
+  when: set_hostkeys_content.hostkeys.ed25519.private|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+  
+- name: Set ED25519 public key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_ed25519_key.pub"
+    content: "{{ set_hostkeys_content.hostkeys.ed25519.public }}"
+  when: set_hostkeys_content.hostkeys.ed25519.public|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set RSA private key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_rsa_key"
+    content: "{{ set_hostkeys_content.hostkeys.rsa.private }}"
+  when: set_hostkeys_content.hostkeys.rsa.private|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True
+
+- name: Set RSA public key
+  copy:
+    dest: "{{ set_hostkeys_dest_dir }}/ssh_host_rsa_key.pub"
+    content: "{{ set_hostkeys_content.hostkeys.rsa.public }}"
+  when: set_hostkeys_content.hostkeys.rsa.public|length > 0
+  notify: restart ssh service when key changed if set_hostkeys_restart_service set to true
+  no_log: True

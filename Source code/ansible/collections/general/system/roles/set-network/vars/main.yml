@@ -1,0 +1,4 @@
+---
+# vars file for set-network
+set_network_manager: "dhcpcd" # dhcpcd, netplan
+set_network_json: "network-settings.json"

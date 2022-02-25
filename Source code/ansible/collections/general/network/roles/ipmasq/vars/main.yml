@@ -1,0 +1,4 @@
+---
+# vars file for ipmasq
+ipmasq_source: '192.168.1.0/24'
+ipmasq_destination: '0.0.0.0/0'

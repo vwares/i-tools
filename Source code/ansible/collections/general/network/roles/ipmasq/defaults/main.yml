@@ -1,0 +1,7 @@
+---
+# defaults file for ipmasq
+ipmasq_required_packages:
+  - iptables
+  - iptables-persistent
+
+ipmasq_save_command: '/usr/sbin/iptables-save > /etc/iptables/rules.v4'

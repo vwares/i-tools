@@ -1,0 +1,37 @@
+---
+# tasks file for ipmasq
+- name: Install required packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  loop: [ "{{ ipmasq_required_packages }}" ]
+
+- name: Set IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: True
+
+- name: Allow forwarding (iptables)
+  ansible.builtin.iptables:
+    chain: FORWARD
+    source: '{{ipmasq_source}}'
+    jump: ACCEPT
+
+- name: Create Iptables NAT chain
+  ansible.builtin.iptables:
+    table: nat
+    chain: POSTROUTING
+    #out_interface: 'eth1'
+    source: '{{ipmasq_source}}'
+    destination: '{{ipmasq_destination}}'
+    jump: MASQUERADE
+    #protocol: '{{ masquerade_protocol }}'
+    comment: Ansible NAT Masquerade
+
+- name: Save rules
+  ansible.builtin.shell:
+    cmd: '{{ ipmasq_save_command }}'

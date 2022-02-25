@@ -1,0 +1,5 @@
+---
+# defaults file for tinyproxy
+tinyproxy_user: 'tinyproxy'
+tinyproxy_group: 'tinyproxy'
+tinyproxy_viaproxyname: 'tinyproxy'

@@ -1,0 +1,10 @@
+---
+- name: Edit dhcpcd.conf configuration
+  template:
+    src: set_network_dhcpcd.conf
+    dest: "{{ set_network_dhcpcd_conf_path }}"
+    owner: root
+    group: root
+    mode: 0644
+  #~ notify:
+    #~ - restart dhcpcd

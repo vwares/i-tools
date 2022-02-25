@@ -1,0 +1,4 @@
+---
+- name: Nordvpn installation for Redhat
+  fail:
+    msg: Not implemented yet.

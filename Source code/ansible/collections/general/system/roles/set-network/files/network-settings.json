@@ -1,0 +1,18 @@
+{
+  "network": {
+    "hostname": "hostname.intranet.domain.com",
+    "ip_forward": 0,
+    "interfaces": [
+      {
+        "name": "eth0",
+        "dhcp": "no",
+        "ip_address": "192.168.0.1",
+        "ip_mask": "24",
+        "ip6_address": "",
+        "routers": "192.168.0.254",
+        "domain_name_servers": "8.8.8.8 9.9.9.9",
+        "domain_search": "intranet.domain.com domain.com"
+      }
+    ]
+  }
+}

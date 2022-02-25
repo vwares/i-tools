@@ -1,0 +1,6 @@
+- name: Install utilities packages (Redhat)
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: [ "{{ redhat_utils_pkg_list }}" ]

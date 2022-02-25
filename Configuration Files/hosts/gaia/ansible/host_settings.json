@@ -1,0 +1,83 @@
+{
+  "network": {
+    "hostname": "gaia.dmz.domain.org",
+    "ip_forward": 0,
+    "interfaces": [
+      {
+        "name": "eth0",
+        "dhcp": "no",
+        "ip_address": "192.168.1.20",
+        "ip_mask": "24",
+        "ip6_address": "",
+        "routers": "192.168.1.254",
+        "domain_name_servers": "192.168.1.254 8.8.8.8",
+        "domain_search": "dmz.domain.org domain.org"
+      }
+    ]
+  },
+  "hostkeys": {
+    "dsa": {
+      "private": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABsQAAAAdzc2gtZH\nNzAAAAgQChl8AQomdorKYS2Fd8YKohHToAmFlUWNoLDOy6l5y+QzHORuh+Rhn7t0gRAm8A\nIoGxIGLZC8dgyTyLynXzWdUTRpPRf+o68ZgG+tfQIsRpNQvf/lFv3k34HurDNbkutLmZK5\nxKUSD1Kvs9KXVHupZ4SWmqXJdnIEoBDyxdzmbh4QAAABUAiv5Fn7tYgYV8X1/9BOF0+1+k\nyK8AAACAcnd6nVRAKTApeIUkAljlq2ZUfNn7sLWps668abNPRoZ9Mn1nW/tYeg5QsjYE1u\nBk+vZcLIZptR31Dl3fVbzTjAw3qdGaX2DJ8podFVhJTUj0TALajykHmZNdMf/GJBnEml6D\nDHxARTAxfvinvKymBt0vuDBE2u386V/3CuO2RroAAACARxYNeehu/IzSQwTkV0mm896BcL\nHGAbibxpCc9kIfqwaCCrUtP7Ci5+Di7hB/jLTAqEe0YQQGgZ158A3vbhyBCI4b2aEj9ZjN\nnbQcCRefks2ya6VFEETKNALgFf+P9WUQSlXTX0zDjPOgVtFWCmp23kucziGWyG16nTwMVq\nda2QsAAAHwWSgeu1koHrsAAAAHc3NoLWRzcwAAAIEAoZfAEKJnaKymEthXfGCqIR06AJhZ\nVFjaCwzsupecvkMxzkbofkYZ+7dIEQJvACKBsSBi2QvHYMk8i8p181nVE0aT0X/qOvGYBv\nrX0CLEaTUL3/5Rb95N+B7qwzW5LrS5mSucSlEg9Sr7PSl1R7qWeElpqlyXZyBKAQ8sXc5m\n4eEAAAAVAIr+RZ+7WIGFfF9f/QThdPtfpMivAAAAgHJ3ep1UQCkwKXiFJAJY5atmVHzZ+7\nC1qbOuvGmzT0aGfTJ9Z1v7WHoOULI2BNbgZPr2XCyGabUd9Q5d31W804wMN6nRml9gyfKa\nHRVYSU1I9EwC2o8pB5mTXTH/xiQZxJpegwx8QEUwMX74p7yspgbdL7gwRNrt/Olf9wrjtk\na6AAAAgEcWDXnobvyM0kME5FdJpvPegXCxxgG4m8aQnPZCH6sGggq1LT+woufg4u4Qf4y0\nwKhHtGEEBoGdefAN724cgQiOG9mhI/WYzZ20HAkXn5LNsmulRRBEyjQC4BX/j/VlEEpV01\n9Mw4zzoFbRVgpqdt5LnM4hlshtep08DFanWtkLAAAAFD8kJ2dkCpmuNeRVkgvJ1pSx2dyL\nAAAAGGlhY0BqdXBpdGVyLmxhbi53YXJlcy5mcgECAw==\n-----END OPENSSH PRIVATE KEY-----\n",
+      "public": "ssh-dss AAAAB3NzaC1kc3MAAACBAKGXwBCiZ2isphLYV3xgqiEdOgCYWVRY2gsM7LqXnL5DMc5G6H5GGfu3SBECbwAigbEgYtkLx2DJPIvKdfNZ1RNGk9F/6jrxmAb619AixGk1C9/+UW/eTfge6sM1uS60uZkrnEpRIPUq+z0pdUe6lnhJaapcl2cgSgEPLF3OZuHhAAAAFQCK/kWfu1iBhXxfX/0E4XT7X6TIrwAAAIByd3qdVEApMCl4hSQCWOWrZlR82fuwtamzrrxps09Ghn0yfWdb+1h6DlCyNgTW4GT69lwshmm1HfUOXd9VvNOMDDep0ZpfYMnymh0VWElNSPRMAtqPKQeZk10x/8YkGcSaXoMMfEBFMDF++Ke8rKYG3S+4METa7fzpX/cK47ZGugAAAIBHFg156G78jNJDBORXSabz3oFwscYBuJvGkJz2Qh+rBoIKtS0/sKLn4OLuEH+MtMCoR7RhBAaBnXnwDe9uHIEIjhvZoSP1mM2dtBwJF5+SzbJrpUUQRMo0AuAV/4/1ZRBKVdNfTMOM86BW0VYKanbeS5zOIZbIbXqdPAxWp1rZCw== iac@jupiter.lan.wares.fr\n"
+    },
+    "ecdsa": {
+      "private": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS\n1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQQM7Fd9CqkRQsa8ExlTfLZRDDaZ7MhL\n3wUCO8kDgh5Q0XnYRwsCrKSRVyGKwAZdklv4NWmojA4Uw32mJNSrgV/1AAAAsGIRWcFiEV\nnBAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAzsV30KqRFCxrwT\nGVN8tlEMNpnsyEvfBQI7yQOCHlDRedhHCwKspJFXIYrABl2SW/g1aaiMDhTDfaYk1KuBX/\nUAAAAgQ7qPxfxKWV97fYb0OY8Av6MobRgcV3mN8SYe4fAinkIAAAAYaWFjQGp1cGl0ZXIu\nbGFuLndhcmVzLmZy\n-----END OPENSSH PRIVATE KEY-----\n",
+      "public": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAzsV30KqRFCxrwTGVN8tlEMNpnsyEvfBQI7yQOCHlDRedhHCwKspJFXIYrABl2SW/g1aaiMDhTDfaYk1KuBX/U= iac@jupiter.lan.wares.fr\n"
+    },
+    "ed25519": {
+      "private": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\nQyNTUxOQAAACAhGmVtkSdhliy/yPOEtt8TfUtHunK0NORzF8ufNEuhGgAAAKBwTqzEcE6s\nxAAAAAtzc2gtZWQyNTUxOQAAACAhGmVtkSdhliy/yPOEtt8TfUtHunK0NORzF8ufNEuhGg\nAAAED1t2/dpKiCZVzG0+QaI4xLC6AHE/L8Ockl//zqfqPDfCEaZW2RJ2GWLL/I84S23xN9\nS0e6crQ05HMXy580S6EaAAAAGGlhY0BqdXBpdGVyLmxhbi53YXJlcy5mcgECAwQF\n-----END OPENSSH PRIVATE KEY-----\n",
+      "public": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEaZW2RJ2GWLL/I84S23xN9S0e6crQ05HMXy580S6Ea iac@jupiter.lan.wares.fr\n"
+    },
+    "rsa": {
+      "private": "-----BEGIN OPENSSH PRIVATE KEY-----\n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\n-----END OPENSSH PRIVATE KEY-----\n",
+      "public": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDsK9wIjGN71RyV0eCkFgkSokVeyhaggy+562ourdkPTeJio9KIE1pCDgqrm4hNENeES1OnXANxX891a36ARh4WFUTRofhZqKUhNhJkFcV1Yw53DmOc1ii1JyI7/wZ6WzfSvstE9XQHYNbHHS5ADTQXJA1DSRkPsk5DLRaqrc/zKKUc6JAWqyF9Ip95DuhktAyoMgcDQtB67Ik3TJ+qFTd3NK/GiYW8XZmgTNjccUhI8Eir3USZulwyMmx0nFlVjaVcVrpsb3QtrERYctDJr0uDYurWWXgpxtEYinURxByjzA5l2rP6gyfwJ71SV+eJdFBIqOZjddwcmPjE6UGEYdbFEA4MK7RZy10oULwJpIiTGdQqr0POewKRqsGUW5AzsxMnDB5Dqg2NrvuBUYyR1DNFefpn7olz02MzLbCFdjh8UdwTDt1xytqVC57Ehsbir/Tnxrcnrdp7pSg3PHNf5MUaBZev13/E2a7nqJ27AAjptQTCdI4QV88FgyvrzEl8b0021KAYoJYrJ3+1hzFdsXAKyG7sAbtXRJX9T9ifqfZ2DvrOhHpsWCK5ZkauUZuNU3FsLL/9mWPygjC1s7MFbe19/eAuPibQCRceXqUfZ75jB/kiaQoPD0Cttiu3NUmpFd8mji+03NQfHS2kwTKlsf/e/5mGy+23SGQZoR2AbCo9vw== iac@jupiter.lan.wares.fr\n"
+    }
+  },
+  "users": [
+    {
+      "comment": "root",
+      "name": "root",
+      "uid": "",
+      "group": "",
+      "secondarygroups": "",
+      "password": "4dm1nP@55w0rd",
+      "update_password": "always",
+      "authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN9y99/tvsKKgmuje4kalGynJJ9E6p1OXB2kBZ6x3kkOPCNdJPsKGuAkDjWaqD8JMAtkoxqvmViXimdhfWwIQtYAtDaQJIfdBUHisa+2qY0I3gWtZglpkCGxpPpRdliCpb7yUOVBN6EESmRGkdJ/WKXFHrUtM6CutwV2mY3ykgcTOXm8FQEvOrUiulpPXrvpyx+WLJvZMmFSorwak1xUbnAjmz6UD8TwIVGQAluYeYnw30m3q11K41czlVJqX/vJ9tIyti0gn9sepzlCI0kUdEeiEudul/22giN6k2ZTY1KaVeNGgoDsDzpEfyBVYLpsjMcqPHSXmdFFy9afdO1YLz john@domain.org\n",
+      "generate_ssh_key": "no",
+      "ssh_key_file": ".ssh/id_rsa",
+      "ssh_key_passphrase": "",
+      "ssh_key_type": "rsa",
+      "create_home": "yes",
+      "home": "/root",
+      "shell": "/bin/bash",
+      "email": "admin@domain.org",
+      "issystemaccount": "no"
+    },
+    {
+      "comment": "John Wayne",
+      "name": "john",
+      "uid": "",
+      "group": "",
+      "secondarygroups": "",
+      "password": "j0hnny83g00d",
+      "update_password": "always",
+      "authorized_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAXt2dUI1lfYIlNygL/y3QLzRX5ytibnYyhT32ZYpYKxwUiCd+qnvoYSF5MpyBYB0DLSejY2txoZEsKhVht0rp2Lo+6/0zhH2f3r7D1Hbj/vuMwkUpZvmrzeymobibOr+BxNq3/AA/R24e0uPfkibD7Ocyl1yYPOgOWJlETFqUQ8muL2cKWCiyS/RNSBrIOZha/lGHoJCQpnFBBOGy4BosUfywzzZSdjjaDTJjVL1cngobZsYXLLQz7io8cgRFQ9MU0zL66Yuzt/FF12/U9jbQ5Q/MB+c7Ik+XGc/MbxxX2eV2Bb+ZAheFsWSLwf1MX5IJVVTZ5kvIz6k6WOdiEZ7H root@jupiter.lan.wares.fr\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNUM9hKxA/zgGJo8pKC2m9nQVH37KgfH+G3zFdQDLlX04UQy4zMAvlGeFOR8ZxoJK523XaBK7U2e0LiQNd3/cWOgabsKs4ba4m44DY6XC5Dpr9RN3/HwVec9zdsghfJpry6eztVIL3v4ftRVaHeWvB/6YCQ10tVldWWAyNHWH3y9lYuYBj2l1oZJQR1kOI3azmw3H+CMEXQVLoITUJgGRN5QrZSfh+j7nSJbE8QardQ8BVrqwsoQjRnB8nzdsHVNiroHhAsJGwQvg+FaefI1X3+sN38ivF6jM5ZxE6wWA8eA1Bvl6gY/3jCt0iGzBFXd/jQkUmfvFRG2vVCxV9R4OX root@gaia.dmz.domain.org\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCbyOkswiLID/cqSROOpIAmxu6HQwBx2/Bchv2lnYImtjjztI42hJdkJQZSZeLRZr2IgDJN00Huaq7ZzkK5sE2rX4payrQKbeTbk3Blf7jVuBc57qZMEga7zPl0LbB6r7IlLS4e4U9WJPhhrBG1Kgr4D8cTygNb9RfiRUDFSbP32/klOLubcm5kK/0UuAaxkwNpQ7a23LOpqVNBAN7YbkBghG+Js/vPy98zqbsqufxuXpuSCG2ZFzVkToabH7FrezXiTHiyws51VCUa+l0fd2mDP8n0ic2BiXEpfEcT4/ebW6jhcqAH7w3GatfzqGth9aRrySuwho/kYbzzZZNWD28NvzfZvITPN8sXd0jXy65F1j2mpA6LXWJmvHUEQIU30NsibyDXiydnLZCXQWz4V8FkSaGfEm2/fh28dIyGyeKCLERFfVtp+pB600AcZZ2VldMHIQgz9X+RT/iVn98OiyZFK4XO6NEu+gMrzsEz4bxydFiGuaL3y1P+x2g0WKnNlKk= pi@terra.lan.wares.fr (mate 32)\n",
+      "generate_ssh_key": "no",
+      "ssh_key_file": ".ssh/id_rsa",
+      "ssh_key_passphrase": "",
+      "ssh_key_type": "rsa",
+      "create_home": "yes",
+      "home": "/home/john",
+      "shell": "/bin/bash",
+      "email": "john@domain.org",
+      "issystemaccount": "no"
+    }
+  ],
+  "groups": [
+    {
+      "name": "domainadmins",
+      "gid": "1500",
+      "issystemgroup": "no"
+    }
+  ]
+}

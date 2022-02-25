@@ -1,0 +1,127 @@
+---
+# tasks file for cloud-mediacenter
+- name: Ensure write user group exists with correct gid
+  ansible.builtin.group:
+    name: "{{ cloud_mediacenter_write_user }}"
+    state: present
+    gid: 1500
+
+- name: Create hd mount point if it doesn't exist
+  ansible.builtin.file:
+    path: "{{ cloud_mediacenter_hdmountpoint }}"
+    state: directory
+    mode: '0755'
+
+- name: Install Samba package
+  ansible.builtin.apt:
+    name: samba
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Create samba users
+  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
+  with_items:
+    - "{{cloud_mediacenter_samba_users}}"
+  no_log: True
+
+- name: Edit Samba configuration
+  template:
+    src: cloud-mediacenter_smb.conf
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart smbd
+
+- name: Install Transmission package
+  ansible.builtin.apt:
+    name: transmission-daemon
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+ 
+- name: Stop Transmission Daemon before modifying settings
+  service:
+    name: transmission-daemon
+    state: stopped
+    
+- name: Add Transmission user to write group
+  user: name="{{ cloud_mediacenter_transmission_user }}"
+        groups="{{ cloud_mediacenter_write_user }}"
+        append=yes
+    
+- name: Edit Transmission configuration
+  template:
+    src: cloud-mediacenter_transmission-settings.json
+    dest: /etc/transmission-daemon/settings.json
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start Transmission Daemon
+  service:
+    name: transmission-daemon
+    state: restarted
+
+- name: Install kodi package
+  ansible.builtin.apt:
+    name: kodi
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Edit Kodi startup script
+  template:
+    src: cloud-mediacenter_start-kodi-sa.sh
+    dest: "{{ cloud_mediacenter_kodi_svcstart }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Edit Kodi startup service
+  template:
+    src: cloud-mediacenter_kodi.service
+    dest: "/etc/systemd/system/{{ cloud_mediacenter_kodi_svcname }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - init kodi service
+    - enable kodi service
+    #- start kodi service
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Set /etc/fstab
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    # Any line that begins with cloud_mediacenter_hdpart (e.g "/dev/sda2")
+    regexp: '^{{cloud_mediacenter_hdpart}}.*'
+    line: "{{cloud_mediacenter_hdpart}} {{cloud_mediacenter_hdmountpoint}} {{cloud_mediacenter_hdtype}} defaults 0 0"
+
+- name: Reboot host
+  reboot:
+    reboot_timeout: 300
+
+- name: Wait until hd is mounted before continuing
+  wait_for:
+    path: "{{ cloud_mediacenter_hdmountpoint }}/Games/saves"
+    timeout: 60
+
+- name: Recursively change ownership for all dirs
+  ansible.builtin.file:
+    path: "{{ cloud_mediacenter_hdmountpoint }}"
+    recurse: yes
+    owner: "{{ cloud_mediacenter_write_user }}"
+    group: "{{ cloud_mediacenter_write_user }}"
+    mode: '0775'
+    
+- name: Recursively change ownership for emulators saves dirs
+  ansible.builtin.file:
+    path: "{{ cloud_mediacenter_hdmountpoint }}/Games/saves"
+    recurse: yes
+    owner: "{{ cloud_mediacenter_emulators_user }}"
+    group: "{{ cloud_mediacenter_write_user }}"
