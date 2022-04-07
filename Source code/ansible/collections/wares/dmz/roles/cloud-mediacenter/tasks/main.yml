@@ -1,10 +1,16 @@
 ---
 # tasks file for cloud-mediacenter
-- name: Ensure write user group exists with correct gid
+- name: Ensure write group exists with correct gid
   ansible.builtin.group:
-    name: "{{ cloud_mediacenter_write_user }}"
+    name: "{{ cloud_mediacenter_write_group }}"
     state: present
     gid: 1500
+
+- name: Ensure write user exists with correct group
+  ansible.builtin.user:
+    name: "{{ cloud_mediacenter_write_user }}"
+    state: present
+    group: "{{ cloud_mediacenter_write_group }}"
 
 - name: Create hd mount point if it doesn't exist
   ansible.builtin.file:
@@ -49,7 +55,7 @@
     
 - name: Add Transmission user to write group
   user: name="{{ cloud_mediacenter_transmission_user }}"
-        groups="{{ cloud_mediacenter_write_user }}"
+        groups="{{ cloud_mediacenter_write_group }}"
         append=yes
     
 - name: Edit Transmission configuration
@@ -116,7 +122,7 @@
     path: "{{ cloud_mediacenter_hdmountpoint }}"
     recurse: yes
     owner: "{{ cloud_mediacenter_write_user }}"
-    group: "{{ cloud_mediacenter_write_user }}"
+    group: "{{ cloud_mediacenter_write_group }}"
     mode: '0775'
     
 - name: Recursively change ownership for emulators saves dirs
@@ -124,4 +130,4 @@
     path: "{{ cloud_mediacenter_hdmountpoint }}/Games/saves"
     recurse: yes
     owner: "{{ cloud_mediacenter_emulators_user }}"
-    group: "{{ cloud_mediacenter_write_user }}"
+    group: "{{ cloud_mediacenter_write_group }}"

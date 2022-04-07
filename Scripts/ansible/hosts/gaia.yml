@@ -1,6 +1,6 @@
 ---
 - name: Configure base settings
-  hosts: blank
+  hosts: gaia
   tasks:
 
     - name: Include role general/utils/roles/update-os
@@ -15,12 +15,6 @@
       include_role:
         name: "{{ collections_path }}/general/utils/roles/install-webmin"
         
-    - name: Include role general/system/roles/set-usersandgroups
-      include_role:
-        name: "{{ collections_path }}/general/system/roles/set-usersandgroups"
-      vars:
-        set_usersandgroups_json: "{{json_host_settings}}"
- 
     - name: Include role general/system/roles/set-network
       include_role:
         name: "{{ collections_path }}/general/system/roles/set-network"
@@ -43,7 +37,12 @@
       poll: 0
       args:
         executable: /bin/bash
-        
+
+    - name: Sleep for 15 seconds before ending play
+      wait_for:
+        timeout: 15
+      delegate_to: localhost
+
 - name: Configure Gaia
   hosts: gaia
   gather_facts: no # gather_facts turned off not to fail waiting for host to be up
@@ -60,6 +59,12 @@
     - name: Include role general/utils/roles/upgrade-packages
       include_role:
         name: "{{ collections_path }}/general/utils/roles/upgrade-packages"
+
+    - name: Include role general/system/roles/set-usersandgroups
+      include_role:
+        name: "{{ collections_path }}/general/system/roles/set-usersandgroups"
+      vars:
+        set_usersandgroups_json: "{{json_host_settings}}"
 
     - name: Include role wares/dmz/roles/nordvpn
       include_role:
@@ -86,3 +91,10 @@
       vars:
         ipmasq_source: '192.168.1.0/24'
         ipmasq_destination: '0.0.0.0/0'
+
+    - name: Install dnsmasq package
+      ansible.builtin.apt:
+        name: dnsmasq
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600     

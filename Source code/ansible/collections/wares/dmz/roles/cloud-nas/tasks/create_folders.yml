@@ -44,6 +44,7 @@
     state: directory
     group: "{{item.group}}"
     mode: "{{item.mode}}"
+    recurse: yes
   with_items:
     - "{{cloud_nas_shared_folders}}"
 

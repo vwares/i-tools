@@ -5,6 +5,7 @@
 cloud_mediacenter_hdpart: "/dev/sda2"
 cloud_mediacenter_emulators_user: "emulators"
 cloud_mediacenter_write_user: "john"
+cloud_mediacenter_write_group: "hdadmins"
 
 # Samba
 cloud_mediacenter_samba_workgroup: "workgroup"
