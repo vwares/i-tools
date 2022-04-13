@@ -1,0 +1,71 @@
+---
+# tasks file for intranet-termserv
+- name: Install intranet-termserv required packages
+  import_tasks: install_pkgs.yml
+
+- name: Get linux users settings from Json
+  set_fact:
+    intranet_termserv_users_settings: "{{ lookup('file',intranet_termserv_linux_users) | from_json }}"
+  no_log: True
+
+- name: Loop over intranet_termserv_users_settings for normal users creation/edition
+  ansible.builtin.user:
+    create_home: no
+    home: "{{intranet_termserv_private_folders_root}}/{{item.name}}"
+    name : "{{ item.name }}"
+    shell : "{{ item.shell }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+    update_password: "always"
+  when: item.name != 'root'
+  loop: "{{ intranet_termserv_users_settings.users if intranet_termserv_users_settings.users is iterable and intranet_termserv_users_settings.users is not string else [] }}"
+  no_log: True
+
+- name: Start samba service, if not started
+  ansible.builtin.service:
+    name: smbd
+    state: started
+
+- name: Create samba users
+  shell: "(echo {{ item['smbpasswd'] }}; echo {{ item['smbpasswd'] }}) | smbpasswd -s -a {{ item['name'] }}"
+  with_items:
+    - "{{intranet_termserv_samba_users}}"
+  no_log: True
+
+- name: Private root folder
+  file:
+    path: "{{intranet_termserv_private_folders_root}}"
+    state: directory
+    owner: root
+    group: users
+    mode: u=rwx,g=rx,o-rwx  
+
+- name: Private folders for users (homes)
+  file:
+    path: "{{intranet_termserv_private_folders_root}}/{{item.name}}"
+    state: directory
+    owner: "{{item.name}}"
+    group: root
+    mode: u=rwx,g-rwx,o-rwx
+    recurse: yes
+    follow: false
+  with_items:
+    - "{{intranet_termserv_samba_users}}"
+  no_log: True
+
+- name: Edit Samba configuration
+  template:
+    src: intranet-termserv_smb.conf
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart smbd
+
+- name: Set Mate as X session manager
+  ansible.builtin.shell:
+    cmd: "{{ intranet_termserv_setxsessionmgr_cmd }}"
+
+- name: Reboot
+  reboot:
+    reboot_timeout: 300

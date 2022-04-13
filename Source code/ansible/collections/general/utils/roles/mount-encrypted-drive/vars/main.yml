@@ -1,0 +1,6 @@
+---
+# vars file for mount-encrypted-drive
+mount_encrypted_drive_mountpoint_path: '/mnt/usb1'
+mount_encrypted_drive_device_name: 'usbdrive1'
+mount_encrypted_drive_device_location: '/dev/sda1'
+mount_encrypted_drive_script_path: '/usr/local/bin/mount_encrypted_drive.sh'

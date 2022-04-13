@@ -79,5 +79,24 @@
       "gid": "1500",
       "issystemgroup": "no"
     }
-  ]
+  ],
+  "applications": {
+    "packages": [
+      {
+        "comment": "Desktop Environnement",
+        "name": "mate-desktop-environment",
+        "state": "present"
+      },
+      {
+        "comment": "Desktop Applications",
+        "name": ["firefox-esr","thunderbird","vlc","gimp"],
+        "state": "present"
+      },
+      {
+        "comment": "Printer components",
+        "name": ["cups","cups-ipp-utils","system-config-printer","printer-driver-cups-pdf"],
+        "state": "present"
+      }
+    ]
+  }
 }

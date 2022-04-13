@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "name": "admin",
+      "password": "P@55w0rd0123!",
+      "shell": "/bin/bash"
+    },
+    {
+      "name": "jack",
+      "password": "P@55w0rd4567$!",
+      "shell": "/bin/sh"
+    },
+    {
+      "name": "john",
+      "password": "P@55w0rd8901%",
+      "shell": "/bin/bash"
+    }
+  ]
+}

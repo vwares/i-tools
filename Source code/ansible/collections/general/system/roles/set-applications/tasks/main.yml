@@ -1,0 +1,12 @@
+---
+# tasks file for set-applications
+- name: Get applications settings from Json
+  set_fact:
+    set_applications_settings: "{{ lookup('file',set_applications_json) | from_json }}"
+  no_log: True
+
+- name: Import packages installation tasks (Debian)
+  include_tasks: set_applications-debian.yml
+  loop: "{{ set_applications_settings.applications.packages }}"
+  loop_control:
+    loop_var: set_applications_packages_loopitem

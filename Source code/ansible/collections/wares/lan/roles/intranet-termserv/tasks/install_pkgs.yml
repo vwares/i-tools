@@ -1,0 +1,16 @@
+- name: Install required packages for Terminal Server features (Redhat)
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ intranet_termserv_redhat_required_packages }}"
+  when: ansible_facts['os_family']|lower == 'redhat'
+  
+- name: Install required packages for Terminal Server features (Debian)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  loop: "{{ intranet_termserv_debian_required_packages }}"
+  when: ansible_facts['os_family']|lower == 'debian'

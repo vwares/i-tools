@@ -1,0 +1,13 @@
+--- 
+- name: Get package(s) list
+  set_fact:
+    set_applications_current_pkglist: "{{ set_applications_packages_loopitem.name if set_applications_packages_loopitem.name is iterable and set_applications_packages_loopitem.name is not string else [set_applications_packages_loopitem.name] }}"
+  when: 
+  
+- name: Install package(s) (Debian)
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: "{{ set_applications_packages_loopitem.state }}"
+    update_cache: yes
+    cache_valid_time: 3600
+  loop: "{{ set_applications_current_pkglist }}"

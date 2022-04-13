@@ -1,0 +1,13 @@
+---
+# defaults file for mount-encrypted-drive
+mount_encrypted_drive_required_pkgs: "cryptsetup, hdparm"
+mount_encrypted_drive_retries: 30
+mount_encrypted_drive_retry_delay_in_seconds: 10
+mount_encrypted_drive_owner: 'root'
+mount_encrypted_drive_group: 'users'
+mount_encrypted_drive_mode: 'u=rwx,g=rx,o=rx'
+mount_encrypted_drive_script_src: 'mount_encrypted_drive_script.sh'
+mount_encrypted_drive_script_owner: 'root'
+mount_encrypted_drive_script_group: 'root'
+mount_encrypted_drive_script_mode: '0755'
+mount_encrypted_drive_script_standby_timeout: 240 # (see "hdparm -S" for informations about spindown delay)

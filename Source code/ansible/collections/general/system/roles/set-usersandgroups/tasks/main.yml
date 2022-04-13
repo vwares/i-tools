@@ -11,7 +11,7 @@
     gid: "{{ (item.gid | length > 0) | ternary(item.gid, omit) }}"
     system: "{{ item.issystemgroup }}"
   loop: "{{ set_users_settings.groups if set_users_settings.groups is iterable and set_users_settings.groups is not string else []}}"
-  #no_log: True
+  no_log: True
 
 - name: Loop over set_users_settings for normal users creation/edition
   ansible.builtin.user:
@@ -34,22 +34,7 @@
   loop: "{{ set_users_settings.users if set_users_settings.users is iterable and set_users_settings.users is not string else [] }}"
   no_log: True
 
-- name: Create .ssh directories
-  ansible.builtin.file:
-    path: "{{ item.home }}/.ssh"
-    state: directory
-    owner: "{{ item.name }}"
-    group: "{{ (item.group | length > 0) | ternary(item.group, omit) }}"
-    mode: '0755'
-  loop: "{{ set_users_settings.users if set_users_settings.users is iterable and set_users_settings.users is not string else [] }}"
-  no_log: True
-
-- name: Edit authorized_keys
-  ansible.builtin.copy:
-    content: "{{ item.authorized_keys }} "
-    dest: "{{ item.home }}/.ssh/authorized_keys"
-    owner: "{{ item.name }}"
-    group: "{{ (item.group | length > 0) | ternary(item.group, omit) }}"
-    mode: '0644'
+- name: Set authorized keys when home directory exists
+  include_tasks: set_user_authorized_keys.yml
   loop: "{{ set_users_settings.users if set_users_settings.users is iterable and set_users_settings.users is not string else [] }}"
   no_log: True

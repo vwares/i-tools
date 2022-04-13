@@ -5,14 +5,10 @@
 cloud_nas_debian_required_packages:
   - samba
   - proftpd-basic
-  - cryptsetup
-  - hdparm
   
 cloud_nas_redhat_required_packages:
   - samba
   - proftpd-basic
-  - cryptsetup
-  - hdparm
 
 # GENERAL
 cloud_nas_private_folders_root: "{{cloud_nas_mountpoint}}/private"

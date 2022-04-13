@@ -1,23 +1,4 @@
 ---
-- name: Create encrypted drive mountpoint
-  file:
-    path: "{{cloud_nas_mountpoint}}"
-    state: directory
-    owner: root
-    group: users
-    mode: u=rwx,g=rx,o=rx  
-
-- name: PLEASE LOG IN AND MOUNT ENCRYPTED VOLUME TO CONTINUE
-  ansible.builtin.shell: "mountpoint -q {{cloud_nas_mountpoint}}"
-  register: cloud_nas_encrypted_drive_mountpoint
-  until: cloud_nas_encrypted_drive_mountpoint.rc == 0
-  retries: 30
-  delay: 10
-
-- debug:
-   msg: "Encrypted drive mounted!"
-  when: cloud_nas_encrypted_drive_mountpoint.rc == 0
-
 - name: Create private root folder
   file:
     path: "{{cloud_nas_private_folders_root}}"
@@ -34,6 +15,7 @@
     group: root
     mode: u=rwx,g-rwx,o-rwx
     recurse: yes
+    follow: false
   with_items:
     - "{{cloud_nas_samba_users}}"
   no_log: True

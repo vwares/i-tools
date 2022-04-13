@@ -1,0 +1,10 @@
+---
+# vars file for intranet-termserv
+intranet_termserv_mountpoint: '/mnt/cloud'
+
+intranet_termserv_linux_users: "intranet-termserv_linux_users.json"
+intranet_termserv_samba_users:
+  - {name: 'john', groups: 'users', smbpasswd: 'smbp@55w0rd1'}
+  - {name: 'larmstrong', groups: 'users', smbpasswd: 'smbp@55w0rd1'}
+
+intranet_termserv_samba_workgroup: 'WORKGROUP'

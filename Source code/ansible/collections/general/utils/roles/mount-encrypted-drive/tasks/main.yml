@@ -1,0 +1,39 @@
+---
+# tasks file for mount-encrypted-drive
+- name: Install required packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  loop: [ "{{ mount_encrypted_drive_required_pkgs }}" ]
+
+- name: Encrypted drive mountpoint
+  file:
+    path: "{{ mount_encrypted_drive_mountpoint_path }}"
+    state: directory
+    owner: "{{ mount_encrypted_drive_owner }}"
+    group: "{{ mount_encrypted_drive_group }}"
+    mode: "{{ mount_encrypted_drive_mode }}" 
+
+- name: Copy external drive mount script
+  template:
+    src: "{{ mount_encrypted_drive_script_src }}"
+    dest: "{{ mount_encrypted_drive_script_path }}"
+    owner: "{{ mount_encrypted_drive_script_owner }}"
+    group: "{{ mount_encrypted_drive_script_group }}"
+    mode: "{{ mount_encrypted_drive_script_mode }}"
+    
+- debug:
+   msg: "Encrypted volume mount script path : {{ mount_encrypted_drive_script_path }}"
+
+- name: PLEASE LOG IN AND MOUNT ENCRYPTED VOLUME TO CONTINUE
+  ansible.builtin.shell: "mountpoint -q {{ mount_encrypted_drive_mountpoint_path }}"
+  register: mount_encrypted_drive_mountpoint
+  until: mount_encrypted_drive_mountpoint.rc == 0
+  retries: "{{ mount_encrypted_drive_retries }}"
+  delay: "{{ mount_encrypted_drive_retry_delay_in_seconds }}"
+
+- debug:
+   msg: "Encrypted drive mounted!"
+  when: mount_encrypted_drive_mountpoint.rc == 0

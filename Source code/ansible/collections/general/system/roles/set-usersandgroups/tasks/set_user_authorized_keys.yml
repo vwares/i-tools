@@ -1,0 +1,23 @@
+---
+- name: Check home directory
+  stat:
+    path: "{{item.home}}"
+  register: homedirectory
+
+- name: Create .ssh directories
+  ansible.builtin.file:
+    path: "{{ item.home }}/.ssh"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ (item.group | length > 0) | ternary(item.group, omit) }}"
+    mode: '0755'
+  when: homedirectory.stat.exists # create .ssh subdirectory only if users home directory exists
+
+- name: Edit authorized_keys
+  ansible.builtin.copy:
+    content: "{{ item.authorized_keys }} "
+    dest: "{{ item.home }}/.ssh/authorized_keys"
+    owner: "{{ item.name }}"
+    group: "{{ (item.group | length > 0) | ternary(item.group, omit) }}"
+    mode: '0644'
+  when: homedirectory.stat.exists # set authorized keys only if users home directory exists

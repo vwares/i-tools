@@ -1,4 +1,4 @@
 ---
 # defaults file for install-utils
 redhat_utils_pkg_list: "nmap , wget , unzip, traceroute, ftp"
-debian_utils_pkg_list: "nmap , net-tools , unzip, traceroute, ftp, dnsutils, ecryptfs-utils, git, jq"
+debian_utils_pkg_list: "nmap , net-tools , unzip, traceroute, ftp, dnsutils, cryptsetup, hdparm, ecryptfs-utils, git, jq"

@@ -1,0 +1,16 @@
+---
+# defaults file for intranet-termserv
+
+intranet_termserv_debian_required_packages:
+  - samba
+  - mate
+  - xrdp
+  
+intranet_termserv_redhat_required_packages:
+  - samba
+  - mate
+  - xrdp 
+  
+intranet_termserv_private_folders_root: "{{intranet_termserv_mountpoint}}"
+
+intranet_termserv_setxsessionmgr_cmd: "rm -f /etc/alternatives/x-session-manager && ln -s /usr/bin/mate-session /etc/alternatives/x-session-manager"

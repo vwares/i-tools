@@ -1,0 +1,28 @@
+{
+  "applications": {
+    "custom01": "",
+    "custom02": 0,
+    "packages": [
+      {
+        "comment": "Mate Desktop",
+        "name": "mate",
+        "state": "present"
+      },
+      {
+        "comment": "Firefox browser",
+        "name": "firefox-esr",
+        "state": "present"
+      },
+      {
+        "comment": "Thunderbird mail client",
+        "name": "thunderbird",
+        "state": "present"
+      },
+      {
+        "comment": "Samba",
+        "name": "samba",
+        "state": "absent"
+      }
+    ]
+  }
+}
