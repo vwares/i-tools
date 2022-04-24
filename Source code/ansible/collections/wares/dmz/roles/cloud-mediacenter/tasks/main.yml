@@ -101,12 +101,19 @@
 - name: Flush handlers
   meta: flush_handlers
 
+- name: Install acl package
+  ansible.builtin.apt:
+    name: acl
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
 - name: Set /etc/fstab
   ansible.builtin.lineinfile:
     path: /etc/fstab
     # Any line that begins with cloud_mediacenter_hdpart (e.g "/dev/sda2")
     regexp: '^{{cloud_mediacenter_hdpart}}.*'
-    line: "{{cloud_mediacenter_hdpart}} {{cloud_mediacenter_hdmountpoint}} {{cloud_mediacenter_hdtype}} defaults 0 0"
+    line: "{{cloud_mediacenter_hdpart}} {{cloud_mediacenter_hdmountpoint}} {{cloud_mediacenter_hdtype}} defaults,acl 0 0"
 
 - name: Reboot host
   reboot:
@@ -131,3 +138,15 @@
     recurse: yes
     owner: "{{ cloud_mediacenter_emulators_user }}"
     group: "{{ cloud_mediacenter_write_group }}"
+
+- name: Recursively change group for Transmission download dir
+  ansible.builtin.file:
+    path: "{{ cloud_mediacenter_transmission_download_dir }}"
+    recurse: yes
+    owner: "{{ cloud_mediacenter_write_user }}"
+    group: "{{ cloud_mediacenter_write_group }}"
+    mode: 'u=rwx,g=rwx,o=rx,g+s'
+
+- name: Set acl for Transmission download dir
+  ansible.builtin.shell:
+    cmd: "/usr/bin/setfacl -d -m g::rw {{ cloud_mediacenter_transmission_download_dir }}"
